@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Shortest Path</title>
+</head>
+<body>
+    <h1>Graph Shortest Path</h1>
+    <form action="{{ url_for('graph') }}" method="post">
+        <label for="num_nodes">Number of Nodes:</label>
+        <input type="number" id="num_nodes" name="num_nodes" min="1" required>
+        <div id="weights">
+            <!-- JavaScript will populate this section with weight inputs -->
+        </div>
+        <label for="source">Source Node:</label>
+        <input type="number" id="source" name="source" required>
+        <label for="target">Target Node:</label>
+        <input type="number" id="target" name="target" required>
+        <button type="submit">Generate Graph</button>
+    </form>
+    <script>
+        document.getElementById('num_nodes').addEventListener('change', function() {
+            const numNodes = parseInt(this.value);
+            const weightsDiv = document.getElementById('weights');
+            weightsDiv.innerHTML = '';
+            for (let i = 0; i < numNodes; i++) {
+                for (let j = i + 1; j < numNodes; j++) {
+                    weightsDiv.innerHTML += `<label for="weight_${i}_${j}">Weight for edge (${i}, ${j}):</label>
+                                             <input type="number" id="weight_${i}_${j}" name="weight_${i}_${j}" min="0" step="any"><br>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
